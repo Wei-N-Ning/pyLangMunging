@@ -111,9 +111,9 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | AU0000QAN126 | 200        | QAN          | 2018-08-01      | Equity         | 2018-08-01          |            | N                | 2072-06-14     | 55000         | Closed    | QuotedTradable   | Ordinary         | AUD      | Y             | Y               | Y                          | QAN                    | QAN              | QAN             |          |
       | AU0000IOO126 | 201        | IOO          | 2018-08-01      | Equity         | 2018-08-01          |            | N                | 2072-06-14     | 75005         | Archived  | QuotedTradable   | Ordinary         | AUD      | Y             | Y               | Y                          | IOO                    | IOO              | IOO             |          |
       | AU0000000642 | 642        | BHP          | 2018-08-01      | Equity         |                     |            | N                | 2072-06-14     | 55000         | Open      | QuotedTradable   | Rights           | AUD      | Y             | Y               | Y                          | BHP                    | BHP              | BHP             | 12345    |
-#      | AU0000ZZA126 |   127      | ZZA          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 4180     | Open      | 0                | Ordinary           | AUD      | Y             | Y               | Y                          | ZZA                    | ZZA              | ZZA             |          |
-#      | AU0000ZZB126 | 128        | ZZB          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 2348     | Open      | 4                | Ordinary           | AUD      | Y             | Y               | Y                          | ZZB                    | ZZB              | ZZB             |          |
-#      | AU0000ZZC126 | 129        | ZZC          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 2348     | Open      | 0                | AllocationInterest | AUD      | Y             | Y               | Y                          | ZZC                    | ZZC              | ZZC             |          |
+    #      | AU0000ZZA126 |   127      | ZZA          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 4180     | Open      | 0                | Ordinary           | AUD      | Y             | Y               | Y                          | ZZA                    | ZZA              | ZZA             |          |
+    #      | AU0000ZZB126 | 128        | ZZB          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 2348     | Open      | 4                | Ordinary           | AUD      | Y             | Y               | Y                          | ZZB                    | ZZB              | ZZB             |          |
+    #      | AU0000ZZC126 | 129        | ZZC          | 2018-08-01      | Equity         | 2018-08-03          |            | N                | 2072-06-14     | 2348     | Open      | 0                | AllocationInterest | AUD      | Y             | Y               | Y                          | ZZC                    | ZZC              | ZZC             |          |
 
     And these roles exist:
       | actorId | roleCode             | permissionTypes                                                                      | settlementFacility | status   | transferRelationshipRoleData |
@@ -225,8 +225,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "create account specific payfac ack" table contains:
       | TransactionId                     | {IGNORE}              |
       | CrDtTm                            | {IGNORE}              |
-      | EffectiveDate1                     | {IGNORE}              |
-      | EffectiveDate2                     | {IGNORE}              |
+      | EffectiveDate1                    | {IGNORE}              |
+      | EffectiveDate2                    | {IGNORE}              |
       | RequestType                       | OPEN                  |
       | PayFacType                        | ACCT                  |
       | AccountHIN                        |                       |
@@ -311,7 +311,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | 00700                  | 123        | 2019-02-21 | 2019-02-25 | 2019-02-26  | BonusIssue      |           |                         |                      |             |
       | 00703                  | 123        | 2019-02-21 | 2019-02-25 | 2019-02-26  | CashDividend    |           |                         |                      |             |
       | 00706                  | 123        | 2019-02-21 | 2019-02-25 | 2019-02-26  | DecreaseInValue | N         |                         |                      |             |
-       # The last corporate action is not concurrent with first 3.
+      # The last corporate action is not concurrent with first 3.
       | 00707                  | 123        | 2019-02-26 | 2019-02-28 | 2019-03-01  | DividendOption  |           |                         |                      |             |
 
     # The cebDate of the corporate-actions are calculated as 2019-02-20.
@@ -341,7 +341,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-1357
+    @SPD-1357
     Examples:
       | AC            | TransactionCondition | Receiver       | ReceiverActor       | ReceiverBalance               | OverrideBOMs   | Reject Reason | Reject Description                                                                                    | Description                                                                                             |
       | SPD-1357-AC01 | UDTR                 | {receiverUDTR} | {receiverActorUDTR} | {receiverUnitsAfterNoDecimal} |                | 1084          | Requested quantity is greater than the available balance in '{deliverer}'                             | Nack, no oBOM provided and insufficient CEB Units available in Delivering HIN                           |
@@ -400,7 +400,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-4262
+    @SPD-4262
     Examples:
       | AC             | Reject Reason | Reject Description                                                                                                                                                                       |
       | SPD-4262-ACBug | 0099          | /BizMsg/Document/SctiesSttlmTxInstr/DlvrgSttlmPties/Pty1/Id/AnyBIC: Text field does not match pattern. Actual text '01440'. Pattern '[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}'. |
@@ -539,13 +539,13 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | ActorParty      | AccountId  | UnitQuantity         | CorporateActionId |
       | <ReceiverActor> | <Receiver> | {receiverUnitsAfter} | 00706             |
 
-  @SPD-1357
+    @SPD-1357
     Examples:
       | TransactionCondition | Receiver       | ReceiverActor       | ReceiverBalance               | OverrideBOMs | AC            | Description                                                              |
-#      | UDTR                 | {receiverUDTR} | {receiverActorUDTR} | {receiverUnitsAfterNoDecimal} | CBNS,CDIV,CCRT | SPD-1357-AC08 | CEB Balances are transferred. Override Basis of Movement is provided.    |
+      #      | UDTR                 | {receiverUDTR} | {receiverActorUDTR} | {receiverUnitsAfterNoDecimal} | CBNS,CDIV,CCRT | SPD-1357-AC08 | CEB Balances are transferred. Override Basis of Movement is provided.    |
       | UDTR                 | {receiverUDTR} | {receiverActorUDTR} | {receiverUnitsAfterNoDecimal} |              | SPD-1357-AC10 | CEB Balances are transferred. No Override Basis of Movement is provided. |
-#      | UDRP                 | {receiverUDRP} | {receiverActorUDRP} |                               | CBNS,CDIV,CCRT | SPD-1357-AC08 | CEB Balances are transferred. Override Basis of Movement is provided.    |
-#      | UDRP                 | {receiverUDRP} | {receiverActorUDRP} |                               |                | SPD-1357-AC10 | CEB Balances are transferred. No Override Basis of Movement is provided. |
+  #      | UDRP                 | {receiverUDRP} | {receiverActorUDRP} |                               | CBNS,CDIV,CCRT | SPD-1357-AC08 | CEB Balances are transferred. Override Basis of Movement is provided.    |
+  #      | UDRP                 | {receiverUDRP} | {receiverActorUDRP} |                               |                | SPD-1357-AC10 | CEB Balances are transferred. No Override Basis of Movement is provided. |
 
 
   Scenario Outline: <AC> - <TransactionCondition> - Unilateral Demand Transfer ACK (09 AC) Determine Basis of Movement and Effect Cum Entitlement Balance
@@ -684,7 +684,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | 1084                                                                     |
       | ReasonDescription | Requested quantity is greater than the available balance in '<Receiver>' |
 
-  @SPD-1357
+    @SPD-1357
     Examples:
       | AC            | TransactionCondition | Receiver       | ReceiverActor       | ReceiverBalance               |
       | SPD-1357-AC09 | UDTR                 | {receiverUDTR} | {receiverActorUDTR} | {receiverUnitsAfterNoDecimal} |
@@ -746,7 +746,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-1683
+    @SPD-1683
     Examples:
       | AC            | OverrideBOMs   | ASX Code | ISIN         | Sender Actor ID | Reject Reason                                 | Reject Description                                                                                    | Description                                                                                             |
       | SPD-1683-AC01 |                | WOW      | AU0000WOW126 | 01442           | {error:requestedQuantityGreaterThanAvailable} | Requested quantity is greater than the available balance in '0010000023'                              | Nack, no oBOM provided and insufficient CEB Units available in Delivering HIN                           |
@@ -890,7 +890,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-7812 @SPD-1683
+    @SPD-7812 @SPD-1683
     Examples:
       | AC                            | OverrideBOMs | ASX Code | ISIN         | Sender Actor ID | Reject Reason                                 | Reject Description                                                       | Description                                                                                                                               |
       | SPD-1683-AC08, SPD-7812-ACBug | CDIV,CBNS    | WOW      | AU0000WOW126 | 01442           | {error:requestedQuantityGreaterThanAvailable} | Requested quantity is greater than the available balance in '0010000023' | Ack for BDTR, A "cum" Override Basis of Movement is provided resulting in Delivering Units locked                                         |
@@ -1008,8 +1008,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | TransactionId  | {transactionId3}  |
       | Reason         | Unmatched         |
 
-  @SPD-1683
-  @unimplemented
+    @SPD-1683
+    @unimplemented
     Examples:
       | AC            | OverrideBOMs | ASX Code | ISIN         | Sender Actor ID | Description                                                                                                                             |
       | SPD-1683-AC09 | XDIV,XBNS    | WOW      | AU0000WOW126 | 01442           | Ack for BDTR, An "ex" Override Basis of Movement results in the Basis of Movement determined as the Override Basis of Movement value(s) |
@@ -1087,7 +1087,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | TransactionId  | {transactionId2} |
       | Reason         | Unmatched        |
 
-  @SPD-1683
+    @SPD-1683
     Examples:
       | AC            | OverrideBOMs | OverrideBOMs2 | ASX Code | ISIN         | Sender ID1 | Sender ID2 | Description                                                                                                                                                                                                   |
       | SPD-1683-AC11 | XDIV,XBNS    | CDIV,CBNS     | WOW      | AU0000WOW126 | 01442      | 01443      | AC 11: Ack for BDTR, one or more Basis of Movement are not the same as any previously submitted Bilateral Demand Transfer Requests results in Status Advice (Unmatched) and Allegement Notification messages. |
@@ -1170,25 +1170,25 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:deliveringHoldingCid}" and values
-      | ActorParty        | {deliverer}                                   |
-      | AccountId         | {delivererAccount}                            |
-      | UnitQuantity      | 0                                             |
-      | SecurityId        | {securityId}                                  |
-      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
+      | ActorParty   | {deliverer}                                  |
+      | AccountId    | {delivererAccount}                           |
+      | UnitQuantity | 0                                            |
+      | SecurityId   | {securityId}                                 |
+      | Locked       | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:deliveringCEB1}" and values
-      | ActorParty        | {deliverer}                                   |
-      | AccountId         | {delivererAccount}                            |
-      | UnitQuantity      | 0                                             |
-      | CorporateActionId | 01700                                         |
-      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
+      | ActorParty        | {deliverer}                                  |
+      | AccountId         | {delivererAccount}                           |
+      | UnitQuantity      | 0                                            |
+      | CorporateActionId | 01700                                        |
+      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:deliveringCEB2}" and values
-      | ActorParty        | {deliverer}                                   |
-      | AccountId         | {delivererAccount}                            |
-      | UnitQuantity      | 0                                             |
-      | CorporateActionId | 01703                                         |
-      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
+      | ActorParty        | {deliverer}                                  |
+      | AccountId         | {delivererAccount}                           |
+      | UnitQuantity      | 0                                            |
+      | CorporateActionId | 01703                                        |
+      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{receiver}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01441\|AA002           |
@@ -1246,28 +1246,28 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And recObligationId is equal to delObligationId
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty   | {receiver}            |
-      | AccountId    | {receiverAccount}     |
-      | UnitQuantity | 300                   |
-      | SecurityId   | {securityId}          |
+      | ActorParty   | {receiver}        |
+      | AccountId    | {receiverAccount} |
+      | UnitQuantity | 300               |
+      | SecurityId   | {securityId}      |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {receiver}            |
-      | AccountId         | {receiverAccount}     |
-      | UnitQuantity      | 300                   |
-      | CorporateActionId | 01700                 |
+      | ActorParty        | {receiver}        |
+      | AccountId         | {receiverAccount} |
+      | UnitQuantity      | 300               |
+      | CorporateActionId | 01700             |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {receiver}            |
-      | AccountId         | {receiverAccount}     |
-      | UnitQuantity      | 300                   |
-      | CorporateActionId | 01703                 |
+      | ActorParty        | {receiver}        |
+      | AccountId         | {receiverAccount} |
+      | UnitQuantity      | 300               |
+      | CorporateActionId | 01703             |
 
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringHoldingCid}"
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringCEB1}"
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringCEB2}"
 
-  @SPD-1684
+    @SPD-1684
     Examples:
       | AC            | OverrideBOMs | RecOverrideBOMs | Description                                                                                                                   |
       | SPD-1684-AC01 | CDIV,CBNS    | CDIV, CBNS      | Match, Basis of Movement are the same                                                                                         |
@@ -1310,28 +1310,28 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | COMP                     |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {deliverer}           |
-      | AccountId         | {delivererAccount}    |
-      | UnitQuantity      | 100                   |
-      | CorporateActionId | 01700                 |
+      | ActorParty        | {deliverer}        |
+      | AccountId         | {delivererAccount} |
+      | UnitQuantity      | 100                |
+      | CorporateActionId | 01700              |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {deliverer}           |
-      | AccountId         | {delivererAccount}    |
-      | UnitQuantity      | 100                   |
-      | CorporateActionId | 01703                 |
+      | ActorParty        | {deliverer}        |
+      | AccountId         | {delivererAccount} |
+      | UnitQuantity      | 100                |
+      | CorporateActionId | 01703              |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {receiver}            |
-      | AccountId         | {receiverAccount}     |
-      | UnitQuantity      | 200                   |
-      | CorporateActionId | 01700                 |
+      | ActorParty        | {receiver}        |
+      | AccountId         | {receiverAccount} |
+      | UnitQuantity      | 200               |
+      | CorporateActionId | 01700             |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {receiver}            |
-      | AccountId         | {receiverAccount}     |
-      | UnitQuantity      | 200                   |
-      | CorporateActionId | 01703                 |
+      | ActorParty        | {receiver}        |
+      | AccountId         | {receiverAccount} |
+      | UnitQuantity      | 200               |
+      | CorporateActionId | 01703             |
 
     When "{deliverer}" sends an "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA001           |
@@ -1353,11 +1353,11 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:deliveringHoldingCid}" and values
-      | ActorParty        | {deliverer}                                  |
-      | AccountId         | {delivererAccount}                           |
-      | UnitQuantity      | 0                                            |
-      | SecurityId        | {securityId}                                 |
-      | Locked            | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | ActorParty   | {deliverer}                                  |
+      | AccountId    | {delivererAccount}                           |
+      | UnitQuantity | 0                                            |
+      | SecurityId   | {securityId}                                 |
+      | Locked       | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:deliveringCEB1}" and values
       | ActorParty        | {deliverer}                                  |
@@ -1421,21 +1421,21 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And recObligationId is equal to delObligationId
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty   | {receiver}            |
-      | AccountId    | {receiverAccount}     |
-      | UnitQuantity | 300                   |
-      | SecurityId   | {securityId}          |
+      | ActorParty   | {receiver}        |
+      | AccountId    | {receiverAccount} |
+      | UnitQuantity | 300               |
+      | SecurityId   | {securityId}      |
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty        | {receiver}            |
-      | AccountId         | {receiverAccount}     |
-      | UnitQuantity      | 300                   |
-      | CorporateActionId | 01700                 |
+      | ActorParty        | {receiver}        |
+      | AccountId         | {receiverAccount} |
+      | UnitQuantity      | 300               |
+      | CorporateActionId | 01700             |
 
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringHoldingCid}"
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringCEB1}"
 
-  @SPD-1684
+    @SPD-1684
     Examples:
       | AC            | OverrideBOMs | RecOverrideBOMs | Description                                                                       |
       | SPD-1684-AC04 | XDIV,CBNS    | CBNS,XDIV       | Match, One or more Basis of Movement is "ex", results in no change in CEB Balance |
@@ -1475,11 +1475,11 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | COMP                     |
 
     And "{party:operator}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid      | ActorParty  | AccountId          | CorporateActionId | UnitQuantity  |
-      | {IGNORE} | {deliverer} | {delivererAccount} | 01700             | 100           |
-      | {IGNORE} | {deliverer} | {delivererAccount} | 01703             | 100           |
-      | {IGNORE} | {receiver}  | {receiverAccount}  | 01700             | 200           |
-      | {IGNORE} | {receiver}  | {receiverAccount}  | 01703             | 200           |
+      | cid      | ActorParty  | AccountId          | CorporateActionId | UnitQuantity |
+      | {IGNORE} | {deliverer} | {delivererAccount} | 01700             | 100          |
+      | {IGNORE} | {deliverer} | {delivererAccount} | 01703             | 100          |
+      | {IGNORE} | {receiver}  | {receiverAccount}  | 01700             | 200          |
+      | {IGNORE} | {receiver}  | {receiverAccount}  | 01703             | 200          |
 
     When "{deliverer}" sends an "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA001           |
@@ -1562,14 +1562,14 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And recObligationId is equal to delObligationId
 
     And "{party:operator}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with values
-      | ActorParty   | {receiver}         |
-      | AccountId    | {receiverAccount}  |
-      | UnitQuantity | 300                |
-      | SecurityId   | {securityId}       |
+      | ActorParty   | {receiver}        |
+      | AccountId    | {receiverAccount} |
+      | UnitQuantity | 300               |
+      | SecurityId   | {securityId}      |
 
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringHoldingCid}"
 
-  @SPD-1684
+    @SPD-1684
     Examples:
       | AC            | OverrideBOMs | RecOverrideBOMs | Description                                                                 |
       | SPD-1684-AC04 | XDIV,XBNS    | XBNS,XDIV       | Match, All Basis of Movements are "ex", results in no change in CEB Balance |
@@ -1610,20 +1610,20 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | COMP                     |
 
     And "{deliverer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid      | ActorParty  | AccountId          | CorporateActionId | UnitQuantity  |
-      | {IGNORE} | {deliverer} | {delivererAccount} | 01700             | 100           |
-      | {IGNORE} | {deliverer} | {delivererAccount} | 01703             | 100           |
+      | cid      | ActorParty  | AccountId          | CorporateActionId | UnitQuantity |
+      | {IGNORE} | {deliverer} | {delivererAccount} | 01700             | 100          |
+      | {IGNORE} | {deliverer} | {delivererAccount} | 01703             | 100          |
     And "{receiver}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid      | ActorParty  | AccountId          | CorporateActionId | UnitQuantity  |
-      | {IGNORE} | {receiver} | {receiverAccount}   | 01700             | 200           |
-      | {IGNORE} | {receiver} | {receiverAccount}   | 01703             | 200           |
+      | cid      | ActorParty | AccountId         | CorporateActionId | UnitQuantity |
+      | {IGNORE} | {receiver} | {receiverAccount} | 01700             | 200          |
+      | {IGNORE} | {receiver} | {receiverAccount} | 01703             | 200          |
 
     And "{issuer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with values:
-      | cid      | Issuer   | AccountId          | CorporateActionId | Total  | Available |
-      | {IGNORE} | {issuer} | {delivererAccount} | 01700             | 100    | 100       |
-      | {IGNORE} | {issuer} | {delivererAccount} | 01703             | 100    | 100       |
-      | {IGNORE} | {issuer} | {receiverAccount}  | 01700             | 200    | 200       |
-      | {IGNORE} | {issuer} | {receiverAccount}  | 01703             | 200    | 200       |
+      | cid      | Issuer   | AccountId          | CorporateActionId | Total | Available |
+      | {IGNORE} | {issuer} | {delivererAccount} | 01700             | 100   | 100       |
+      | {IGNORE} | {issuer} | {delivererAccount} | 01703             | 100   | 100       |
+      | {IGNORE} | {issuer} | {receiverAccount}  | 01700             | 200   | 200       |
+      | {IGNORE} | {issuer} | {receiverAccount}  | 01703             | 200   | 200       |
 
     When "{deliverer}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA001           |
@@ -1645,16 +1645,16 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
     And "{deliverer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid                             | ActorParty  | AccountId          | SecurityId   | CorporateActionId | UnitQuantity  | Locked                                       |
-      | {CAPTURE:deliveringHoldingCid1} | {deliverer} | {delivererAccount} | {securityId} |                   | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ; |
-      | {CAPTURE:deliveringCEB1}        | {deliverer} | {delivererAccount} |              | 01700             | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ; |
-      | {CAPTURE:deliveringCEB2}        | {deliverer} | {delivererAccount} |              | 01703             | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | cid                             | ActorParty  | AccountId          | SecurityId   | CorporateActionId | UnitQuantity | Locked                                       |
+      | {CAPTURE:deliveringHoldingCid1} | {deliverer} | {delivererAccount} | {securityId} |                   | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB1}        | {deliverer} | {delivererAccount} |              | 01700             | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB2}        | {deliverer} | {delivererAccount} |              | 01703             | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{issuer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with values:
-      | cid                                   | Issuer   | AccountId          | SecurityId   | CorporateActionId | Total  | Available   |
-      | {CAPTURE:deliveringHoldingCid1Issuer} | {issuer} | {delivererAccount} | {securityId} |                   | 100    | {settlmQty} |
-      | {CAPTURE:deliveringCEB1Issuer}        | {issuer} | {delivererAccount} |              | 01700             | 100    | {settlmQty} |
-      | {CAPTURE:deliveringCEB2Issuer}        | {issuer} | {delivererAccount} |              | 01703             | 100    | {settlmQty} |
+      | cid                                   | Issuer   | AccountId          | SecurityId   | CorporateActionId | Total | Available   |
+      | {CAPTURE:deliveringHoldingCid1Issuer} | {issuer} | {delivererAccount} | {securityId} |                   | 100   | {settlmQty} |
+      | {CAPTURE:deliveringCEB1Issuer}        | {issuer} | {delivererAccount} |              | 01700             | 100   | {settlmQty} |
+      | {CAPTURE:deliveringCEB2Issuer}        | {issuer} | {delivererAccount} |              | 01703             | 100   | {settlmQty} |
 
     Then "{deliverer}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA002           |
@@ -1682,10 +1682,10 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | {CAPTURE:deliveringCEB4}        | {deliverer} | {delivererAccount} |              | 01703             | 0            | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     And "{issuer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with values:
-      | cid                                   | Issuer   | AccountId          | SecurityId   | CorporateActionId | Total  | Available |
-      | {CAPTURE:deliveringHoldingCid2Issuer} | {issuer} | {delivererAccount} | {securityId} |                   | 100    | 0         |
-      | {CAPTURE:deliveringCEB3Issuer}        | {issuer} | {delivererAccount} |              | 01700             | 100    | 0         |
-      | {CAPTURE:deliveringCEB4Issuer}        | {issuer} | {delivererAccount} |              | 01703             | 100    | 0         |
+      | cid                                   | Issuer   | AccountId          | SecurityId   | CorporateActionId | Total | Available |
+      | {CAPTURE:deliveringHoldingCid2Issuer} | {issuer} | {delivererAccount} | {securityId} |                   | 100   | 0         |
+      | {CAPTURE:deliveringCEB3Issuer}        | {issuer} | {delivererAccount} |              | 01700             | 100   | 0         |
+      | {CAPTURE:deliveringCEB4Issuer}        | {issuer} | {delivererAccount} |              | 01703             | 100   | 0         |
 
     Then "{deliverer}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA003           |
@@ -1708,7 +1708,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | 1084                                                                     |
       | ReasonDescription | Requested quantity is greater than the available balance in '0010000008' |
 
-      # Roll the business date
+    # Roll the business date
     When the "{party:scheduler}" sends a "BMW/inte900" message with values:
       | bmwBizMsgIdr | 00000\|33333333333333333333333333333 |
       | EventCode    | BDRN                                 |
@@ -1719,7 +1719,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | 00000\|33333333333333333333333333333 | ACCP       |
       | 00000\|33333333333333333333333333333 | COMP       |
 
-      # Now purge the queue for previous business date
+    # Now purge the queue for previous business date
     Then the "{party:scheduler}" sends a "BMW/inte900" message with values:
       | bmwBizMsgIdr | 00000\|44444444444444444444444444444 |
       | EventCode    | CUDT                                 |
@@ -1763,7 +1763,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     Then "{deliverer}" receives a "BMW" message with schema location matching "hold_207"
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
-  @SPD-1705 @SPD-6461 @SPD-6462 @SPD-6886 @SPD-6887
+    @SPD-1705 @SPD-6461 @SPD-6462 @SPD-6886 @SPD-6887
     Examples:
       | AC                                                                        | OverrideBOMs | Description                                                                         |
       | SPD-1705-AC02, SPD-6461-AC01, SPD-6462-AC02, SPD-6886-AC01, SPD-6887-AC01 | CDIV,CBNS    | CUDT job recieved from schedular unlocks units which can be used for other purposes |
@@ -1829,10 +1829,10 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
     And "{party:operator}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid                             | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity  | Locked                                        |
-      | {CAPTURE:deliveringHoldingCid1} | {deliverer} | {delivererAccount} |                   | {securityId} | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
-      | {CAPTURE:deliveringCEB1}        | {deliverer} | {delivererAccount} | 01700             |              | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
-      | {CAPTURE:deliveringCEB2}        | {deliverer} | {delivererAccount} | 01703             |              | {settlmQty}   | SettlementLock:01440\|BB001:{settlmQty}: : ;  |
+      | cid                             | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity | Locked                                       |
+      | {CAPTURE:deliveringHoldingCid1} | {deliverer} | {delivererAccount} |                   | {securityId} | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB1}        | {deliverer} | {delivererAccount} | 01700             |              | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB2}        | {deliverer} | {delivererAccount} | 01703             |              | {settlmQty}  | SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     Then "{deliverer}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA002           |
@@ -1854,10 +1854,10 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
     And "{party:operator}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid                             | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity  | Locked                                                                             |
-      | {CAPTURE:deliveringHoldingCid2} | {deliverer} | {delivererAccount} |                   | {securityId} | 0             | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
-      | {CAPTURE:deliveringCEB3}        | {deliverer} | {delivererAccount} | 01700             |              | 0             | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
-      | {CAPTURE:deliveringCEB4}        | {deliverer} | {delivererAccount} | 01703             |              | 0             | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | cid                             | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity | Locked                                                                                   |
+      | {CAPTURE:deliveringHoldingCid2} | {deliverer} | {delivererAccount} |                   | {securityId} | 0            | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB3}        | {deliverer} | {delivererAccount} | 01700             |              | 0            | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
+      | {CAPTURE:deliveringCEB4}        | {deliverer} | {delivererAccount} | 01703             |              | 0            | SettlementLock:01440\|BB002:{settlmQty}: : ;SettlementLock:01440\|BB001:{settlmQty}: : ; |
 
     Then "{deliverer}" sends a "BMW/hold201" message with values:
       | bmwBizMsgIdr      | 01440\|AA003           |
@@ -1897,10 +1897,10 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | {receiver} | 01440\|BB001        | DELI          | FREE    | DEFAULT |
 
     And "{party:operator}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity  | Locked                                       |
-      | {deliverer} | {delivererAccount} | 01700             |              | 50            | SettlementLock:01440\|BB002:{settlmQty}: : ; |
-      | {deliverer} | {delivererAccount} | 01703             |              | 50            | SettlementLock:01440\|BB002:{settlmQty}: : ; |
-      | {deliverer} | {delivererAccount} |                   | {securityId} | 50            | SettlementLock:01440\|BB002:{settlmQty}: : ; |
+      | ActorParty  | AccountId          | CorporateActionId | SecurityId   | UnitQuantity | Locked                                       |
+      | {deliverer} | {delivererAccount} | 01700             |              | 50           | SettlementLock:01440\|BB002:{settlmQty}: : ; |
+      | {deliverer} | {delivererAccount} | 01703             |              | 50           | SettlementLock:01440\|BB002:{settlmQty}: : ; |
+      | {deliverer} | {delivererAccount} |                   | {securityId} | 50           | SettlementLock:01440\|BB002:{settlmQty}: : ; |
 
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringHoldingCid1}"
     And "{party:operator}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{deliveringCEB1}"
@@ -1925,7 +1925,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     Then "{deliverer}" receives a "BMW" message with schema location matching "hold_207"
     And "{receiver}" receives a "BMW" message with schema location matching "hold_208"
 
-  @SPD-1705
+    @SPD-1705
     Examples:
       | AC            | OverrideBOMs | Description                                                                                     |
       | SPD-1705-AC01 | CDIV,CBNS    | Cancellation message received from deliverer unlocks units which can be used for other purposes |
@@ -2007,7 +2007,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-2421
+    @SPD-2421
     Examples:
       | AC            | OverrideBOMs     | Reject Reason | Reject Description                                                                                    | Description                                                                                             |
       | SPD-2421-AC01 |                  | 1084          | Requested quantity is greater than the available balance in '{deliverer}'                             | Nack, no oBOM provided and insufficient CEB Units available in Delivering HIN                           |
@@ -2106,22 +2106,22 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiverActor}" receives a "BMW" message with schema location matching "sett_110"
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:securitySP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | SecurityId        | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 123               | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | SecurityId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 123        | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb700SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb703SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 00703             | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 00703             | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb706SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 00706             | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 00706             | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
-  @SPD-2421 @SPD-2421
+    @SPD-2421 @SPD-2421
     Examples:
       | AC                           | OverrideBOMs   | Description                                                                                                                               |
       | SPD-2421-AC08, SPD-2421-AC09 | CBNS,CDIV,CCRT | Ack for BDSI, A "cum" Override Basis of Movement is provided resulting in Delivering Units locked                                         |
@@ -2223,21 +2223,21 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiverActor}" receives a "BMW" message with schema location matching "sett_110"
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:securitySP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | SecurityId        | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 123               | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | SecurityId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 123        | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb700SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
     # NOTE(sseefried): It would be great if we could observe the absence of the 703 CEB Balance, which would could
     # technically do. However, observing the absence often leads to false positives on trivial schema changes so we do not.
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb706SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                           |
-      | {delivererActor} | {deliverer} | 60           | 00706             | SettlementLock:{transactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                          |
+      | {delivererActor} | {deliverer} | 60           | 00706             | SettlementLock:{transactionId}:{settlmQty}: : ; |
 
-  @SPD-2421
+    @SPD-2421
     Examples:
       | AC            | OverrideBOMs   | Description                                                                                                                     |
       | SPD-2421-AC09 | CBNS,XDIV,CCRT | ACK for BDSI, A "ex" Override Basis of Movement is provided resulting in no delivering units locked for those corporate actions |
@@ -2356,7 +2356,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
 
     And "{delivererActor}" receives a "BMW" message with schema location matching "sett_110"
 
-  @SPD-2422
+    @SPD-2422
     Examples:
       | AC            | DeliOBOMs       | ReceOBOMs       | Description                                                                                   |
       | SPD-2422-AC01 | CBNS,CDIV, CCRT | CBNS,XDIV, XCRT | oBOMs provided. Determined Basis of Movements are not the same, results in no match           |
@@ -2479,7 +2479,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{delivererActor}" receives a "BMW" message with schema location matching "sett_106"
     And "{receiverActor}" receives a "BMW" message with schema location matching "sett_106"
 
-  @SPD-2422
+    @SPD-2422
     Examples:
       | AC            | DeliOBOMs       | ReceOBOMs        | Description                                                                                     |
       | SPD-2422-AC02 | CBNS,CDIV,CCRT  | CBNS, CDIV, CCRT | AC 02: oBOMs provided both times. Determined Basis of Movement are the same, results in a match |
@@ -2564,12 +2564,12 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | SettlementAmount_CdtDbtInd | CRDT                     |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:securitySP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | SecurityId        | Locked                                                    |
-      | {delivererActor} | {deliverer} | 60           | 123               | SettlementLock:{delivererTransactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | SecurityId | Locked                                                   |
+      | {delivererActor} | {deliverer} | 60           | 123        | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb700SP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                                    |
-      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{delivererTransactionId}:{settlmQty}: : ;  |
+      | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                                   |
+      | {delivererActor} | {deliverer} | 60           | 00700             | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
 
 
     And "{delivererActor}" should receive a "BMW/sett109" message with values:
@@ -2598,8 +2598,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{delivererActor}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{ceb700SP}"
 
     And "{receiverActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{IGNORE}" and values:
-      | ActorParty      | AccountId  | UnitQuantity | SecurityId        |
-      | {receiverActor} | {receiver} | 240          | 123               |
+      | ActorParty      | AccountId  | UnitQuantity | SecurityId |
+      | {receiverActor} | {receiver} | 240          | 123        |
 
     And "{receiverActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{IGNORE}" and values:
       | ActorParty      | AccountId  | UnitQuantity | CorporateActionId |
@@ -2737,7 +2737,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{delivererActor}" should observe the archival of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{securitySP}"
 
     And "{receiverActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{IGNORE}" and values:
-      | ActorParty       | AccountId | UnitQuantity | SecurityId |
+      | ActorParty      | AccountId  | UnitQuantity | SecurityId |
       | {receiverActor} | {receiver} | 240          | 123        |
 
     # Now try to do another BDSI with "ex" determined on CEBs. Should succeed
@@ -2839,8 +2839,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiverActor}" receives a "BMW" message with schema location matching "sett_110"
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:securitySP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | SecurityId        | Locked                                                   |
-      | {delivererActor} | {deliverer} | 60           | 123               | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
+      | ActorParty       | AccountId   | UnitQuantity | SecurityId | Locked                                                   |
+      | {delivererActor} | {deliverer} | 60           | 123        | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb700SP}" and values:
       | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                                   |
@@ -2854,7 +2854,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | bmwBizMsgIdr           | {messageId107}           |
 
     Then "{delivererActor}" should receive a "BMW/sett108" message with values:
-    #Participant 1
+      #Participant 1
       | bmwCreDt                | {CAPTURE:headerCreateUnlock1} |
       | relatedFromUic          | {delivererActor}              |
       | relatedToUic            | 00001                         |
@@ -2960,8 +2960,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
     And "{receiverActor}" receives a "BMW" message with schema location matching "sett_110"
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:securitySP}" and values:
-      | ActorParty       | AccountId   | UnitQuantity | SecurityId        | Locked                                                   |
-      | {delivererActor} | {deliverer} | 60           | 123               | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
+      | ActorParty       | AccountId   | UnitQuantity | SecurityId | Locked                                                   |
+      | {delivererActor} | {deliverer} | 60           | 123        | SettlementLock:{delivererTransactionId}:{settlmQty}: : ; |
 
     And "{delivererActor}" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:ceb700SP}" and values:
       | ActorParty       | AccountId   | UnitQuantity | CorporateActionId | Locked                                                   |
@@ -3097,8 +3097,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @SPD-2944
-  @unimplemented
+    @SPD-2944
+    @unimplemented
     Examples:
       | AC            | oBOM1 | oBOM2 | oBOM3 | Attr 1       | Value 1 | Reject Reason | Reject Description                                                                                    | Description                                                                                             |
       | SPD-2944-AC01 |       |       |       | UnitQuantity | 101     | 1084          | Requested quantity is greater than the available balance in '{deliveringAccount}'                     | Nack, no oBOM provided and insufficient CEB Units available in Delivering HIN                           |
@@ -3201,8 +3201,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | RejectionReason   | <Reject Reason>      |
       | ReasonDescription | <Reject Description> |
 
-  @unimplemented
-  @SPD-2944
+    @unimplemented
+    @SPD-2944
     Examples:
       | AC            | Reject Reason | Reject Description                                                                | Description                                                                   |
       | SPD-2944-AC01 | 1084          | Requested quantity is greater than the available balance in '{deliveringAccount}' | Nack, no oBOM provided and insufficient CEB Units available in Delivering HIN |
@@ -3241,16 +3241,16 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | COMP                     |
 
     And "{deliverer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding_V001.Holding" with values:
-      | cid                   | ActorParty  | AccountId           | CorporateActionId | UnitQuantity  |
-      | {CAPTURE:account1CEB} | {deliverer} | {deliveringAccount} | 00001             | 100           |
-      | {CAPTURE:account2CEB} | {deliverer} | {deliveringAccount} | 00002             | 100           |
-      | {CAPTURE:account3CEB} | {deliverer} | {deliveringAccount} | 00003             | 100           |
+      | cid                   | ActorParty  | AccountId           | CorporateActionId | UnitQuantity |
+      | {CAPTURE:account1CEB} | {deliverer} | {deliveringAccount} | 00001             | 100          |
+      | {CAPTURE:account2CEB} | {deliverer} | {deliveringAccount} | 00002             | 100          |
+      | {CAPTURE:account3CEB} | {deliverer} | {deliveringAccount} | 00003             | 100          |
 
     And "{issuer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with values:
-      | cid                         | Issuer   | AccountId           | CorporateActionId | Total  | Available  |
-      | {CAPTURE:account1issuerCEB} | {issuer} | {deliveringAccount} | 00001             | 100    | 100        |
-      | {CAPTURE:account2issuerCEB} | {issuer} | {deliveringAccount} | 00002             | 100    | 100        |
-      | {CAPTURE:account3issuerCEB} | {issuer} | {deliveringAccount} | 00003             | 100    | 100        |
+      | cid                         | Issuer   | AccountId           | CorporateActionId | Total | Available |
+      | {CAPTURE:account1issuerCEB} | {issuer} | {deliveringAccount} | 00001             | 100   | 100       |
+      | {CAPTURE:account2issuerCEB} | {issuer} | {deliveringAccount} | 00002             | 100   | 100       |
+      | {CAPTURE:account3issuerCEB} | {issuer} | {deliveringAccount} | 00003             | 100   | 100       |
 
     When "{deliverer}" sends an "BMW/hold211" message with values:
       | bmwBizMsgIdr                   | {deliverer}\|1111                          |
@@ -3310,12 +3310,12 @@ Feature: This epic is a mix of multiple stories for different epics that were de
 
     And "{issuer}" should observe the archival of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with contract ids "{account1issuerCEB},{account2issuerCEB},{account3issuerCEB}"
     And "{issuer}" should observe the creation of multiple "DA.ASX.API.Holding.Holding2Issuer_V001.Holding" with values:
-      | cid      | Issuer   | AccountId           | CorporateActionId | Total | Available  |
-      | {IGNORE} | {issuer} | {deliveringAccount} | 00001             | 50    | 50         |
-      | {IGNORE} | {issuer} | {deliveringAccount} | 00002             | 50    | 50         |
-      | {IGNORE} | {issuer} | {deliveringAccount} | 00003             | 50    | 50         |
+      | cid      | Issuer   | AccountId           | CorporateActionId | Total | Available |
+      | {IGNORE} | {issuer} | {deliveringAccount} | 00001             | 50    | 50        |
+      | {IGNORE} | {issuer} | {deliveringAccount} | 00002             | 50    | 50        |
+      | {IGNORE} | {issuer} | {deliveringAccount} | 00003             | 50    | 50        |
 
-  @SPD-2944 @SPD-6473 @SPD-6474 @SPD-6475 @SPD-6476
+    @SPD-2944 @SPD-6473 @SPD-6474 @SPD-6475 @SPD-6476
     Examples:
       | AC                                                                        | first_oBOM1 | first_oBOM2 | first_oBOM3 | second_oBOM1 | second_oBOM2 | second_oBOM3 | Description                                         |
       | SPD-2944-AC08, SPD-6473-AC01, SPD-6474-AC01, SPD-6475-AC01, SPD-6476-AC01 | CDIV        | CBNS        | CCRT        | CDIV         | CBNS         | CCRT         | Ack, A "cum" Override Basis of Movement is provided |
@@ -3443,7 +3443,7 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | UnitQuantity      | 50                  |
       | CorporateActionId | 00003               |
 
-  @SPD-2944
+    @SPD-2944
     Examples:
       | AC            | second_oBOM1 | second_oBOM2 | second_oBOM3 | Description                                    |
       | SPD-2944-AC10 | <nil>        | <nil>        | <nil>        | Ack, No Override Basis of Movement is provided |
@@ -3556,8 +3556,8 @@ Feature: This epic is a mix of multiple stories for different epics that were de
   Scenario: SPD-7596-ACBug - Create Buyback CA (evnt718) RepurchaseOffer - WOW, Buyback Type = EQAC, Selective Indicator = false,  Ex-date=T+1 and Record Date=T+3, Here CEB generation date is T+1 and Create a Rights CA (evnt720) on WOW with renounceable entitlement status = "RENO" and Accelerated offer type = "RPDS",  Ex-date=T and Record Date=T+1, Here CEB generation date is T+2
 
     Given these corporate-actions exist:
-      | corporateActionEventId | securityId | exDate     | recDate    | paymentDate | eventTypeCode   | selective | acceleratedOfferType                   | buyBackType | intermediatePostingDate | intermediateExpiryDate | intermediateSecurityCode | intermediateIsin |
-      | 00718                  | 126        | 2019-02-27 | 2019-03-01 | 2019-03-04  | RepurchaseOffer | N         |                                        | EqualAccess |                         |                        |                          |                  |
+      | corporateActionEventId | securityId | exDate     | recDate    | paymentDate | eventTypeCode   | selective | acceleratedOfferType | buyBackType | intermediatePostingDate | intermediateExpiryDate | intermediateSecurityCode | intermediateIsin |
+      | 00718                  | 126        | 2019-02-27 | 2019-03-01 | 2019-03-04  | RepurchaseOffer | N         |                      | EqualAccess |                         |                        |                          |                  |
 
     And messageId2 is "{party:stp}|ABC124"
 
@@ -3602,12 +3602,12 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | ACCP                     |
 
     And "01442" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:sp2}" and values:
-      | ActorParty | AccountId  | UnitQuantity  | CorporateActionId |
-      | 01442      | 0010000023 | 500           | 00718             |
+      | ActorParty | AccountId  | UnitQuantity | CorporateActionId |
+      | 01442      | 0010000023 | 500          | 00718             |
 
     And "01442" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:sp1}" and values:
-      | ActorParty | AccountId  | UnitQuantity  | CorporateActionId |
-      | 01442      | 0010000024 | 1000          | 00718             |
+      | ActorParty | AccountId  | UnitQuantity | CorporateActionId |
+      | 01442      | 0010000024 | 1000         | 00718             |
 
     And "{party:scheduler}" should receive a "BMW/inte901" message with values:
       | OrigBizMsgIdr | {pcebSchedulerMessageId} |
@@ -3646,12 +3646,12 @@ Feature: This epic is a mix of multiple stories for different epics that were de
       | StatusCode    | ACCP                      |
 
     And "01442" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:sp4}" and values:
-      | ActorParty | AccountId  | UnitQuantity  | CorporateActionId |
-      | 01442      | 0010000023 | 500           | 00720             |
+      | ActorParty | AccountId  | UnitQuantity | CorporateActionId |
+      | 01442      | 0010000023 | 500          | 00720             |
 
     And "01442" should observe the creation of "DA.ASX.API.Holding.Holding_V001.Holding" with contract id "{CAPTURE:sp3}" and values:
-      | ActorParty | AccountId  | UnitQuantity  | CorporateActionId |
-      | 01442      | 0010000024 | 1000          | 00720             |
+      | ActorParty | AccountId  | UnitQuantity | CorporateActionId |
+      | 01442      | 0010000024 | 1000         | 00720             |
 
     And "{party:scheduler}" should receive a "BMW/inte901" message with values:
       | OrigBizMsgIdr | {pcebSchedulerMessageId2} |
