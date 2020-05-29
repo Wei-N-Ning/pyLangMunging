@@ -15,7 +15,12 @@ class ScenarioOutline:
         self.lineno = None
 
     def omitted(self):
-        return '@ignore' in self.tags
+        return '@ignore' in self.tags or \
+            has_tag_prefix('@CDE7_BSET', self.tags) or \
+                has_tag_prefix('@SPD-575', self.tags)
+
+    def unimplemented(self):
+        return '@unimplemented' in self.tags
 
     def nsteps(self):
         return len(self.steps)
@@ -24,12 +29,21 @@ class ScenarioOutline:
         return len(self.examples)
 
     def to_list_items(self):
-        if self.omitted():
+        if self.omitted() or self.unimplemented():
             return []
-        l = ['{}:{}'.format(self.filename, self.lineno)]
+        # SO title line does not count
+        # l = ['{}:{}'.format(self.filename, self.lineno)]
+        l = []
         for lineno, _ in self.examples:
             l.append('{}:{}'.format(self.filename, lineno))
         return l
+
+
+def has_tag_prefix(prefix, tags):
+    for t in tags:
+        if t.startswith(prefix):
+            return True
+    return False
 
 
 class Scenario:
@@ -40,7 +54,9 @@ class Scenario:
         self.lineno = None
 
     def omitted(self):
-        return '@ignore' in self.tags
+        return '@ignore' in self.tags or \
+            has_tag_prefix('@CDE7_BSET', self.tags) or \
+                has_tag_prefix('@SPD-575', self.tags)
 
     def nsteps(self):
         return len(self.steps)
@@ -82,6 +98,11 @@ class Handler:
         pass
 
     def _handle_Feature(self, node):
+        tags = [t['name'] for t in node['tags']]
+
+        if '@ignore' in tags:
+            return
+
         for child in node.get('children', []):
             self.handle(child)
 
@@ -102,14 +123,14 @@ class Handler:
         s = Scenario()
         s.lineno = node['location']['line']
         s.tags = [t['name'] for t in node['tags']]
-        s.steps = [(s['keyword'], s['text']) for s in node['steps']]
+        s.steps = [(st['keyword'], st['text']) for st in node['steps']]
         s.filename = self.filename
         self.scenarios.append(s)
 
     def _handle_Examples(self, node):
         tags = set(t['name'] for t in node['tags'])
 
-        if '@unimplemented' in tags or '@ignore' in tags:
+        if '@ignore' in tags:
             return
 
         so = self.scenarios[-1]
