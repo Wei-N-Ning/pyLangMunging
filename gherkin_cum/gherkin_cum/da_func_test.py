@@ -1,9 +1,20 @@
 import sys
 import os
+import collections
 
 from gherkin.token_scanner import TokenScanner
 from gherkin.parser import Parser
 
+
+class Scenario:
+    def __init__(self):
+        self.steps = []
+        self.examples = []
+
+
+class Example:
+    def __init__(self):
+        self.rows = collections.OrderedDict()
 
 class Handler:
 
@@ -13,6 +24,9 @@ class Handler:
         h = Handler()
         with open(filename, 'r') as fp:
             return h.handle(parser.parse(fp.read()))
+
+    def __init__(self):
+        self.scenarios = []
 
     def handle(self, node):
         meth = getattr(self, '_handle_{}'.format(node['type']), None)
