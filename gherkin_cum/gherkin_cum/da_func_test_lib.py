@@ -14,36 +14,26 @@ class ScenarioOutline:
         self.filename = None
         self.lineno = None
 
-    def omitted(self):
-        return '@ignore' in self.tags or \
-            has_tag_prefix('@CDE7_BSET', self.tags) or \
-                has_tag_prefix('@SPD-575', self.tags)
-
-    def unimplemented(self):
-        return '@unimplemented' in self.tags
-
     def nsteps(self):
         return len(self.steps)
 
     def nexamples(self):
         return len(self.examples)
 
-    def to_list_items(self):
-        if self.omitted() or self.unimplemented():
-            return []
-        # SO title line does not count
-        # l = ['{}:{}'.format(self.filename, self.lineno)]
-        l = []
+    def to_cases(self):
+        c = Case()
+        c.steps = self.steps
+        c.tags = self.tags
+        c.filename = self.filename
+        c.lineno = self.lineno
+        cs = [c]
         for lineno, _ in self.examples:
-            l.append('{}:{}'.format(self.filename, lineno))
-        return l
-
-
-def has_tag_prefix(prefix, tags):
-    for t in tags:
-        if t.startswith(prefix):
-            return True
-    return False
+            c_ = Case()
+            c_.steps = self.steps
+            c_.filename = self.filename
+            c_.lineno = lineno
+            cs.append(c_)
+        return cs
 
 
 class Scenario:
@@ -53,18 +43,30 @@ class Scenario:
         self.filename = None
         self.lineno = None
 
-    def omitted(self):
-        return '@ignore' in self.tags or \
-            has_tag_prefix('@CDE7_BSET', self.tags) or \
-                has_tag_prefix('@SPD-575', self.tags)
+    def nsteps(self):
+        return len(self.steps)
+
+    def to_cases(self):
+        c = Case()
+        c.steps = self.steps
+        c.tags = self.tags
+        c.filename = self.filename
+        c.lineno = self.lineno
+        return [c]
+
+
+class Case:
+    def __init__(self):
+        self.steps = []
+        self.tags = []
+        self.filename = None
+        self.lineno = None
 
     def nsteps(self):
         return len(self.steps)
 
-    def to_list_items(self):
-        if self.omitted():
-            return []
-        return ['{}:{}'.format(self.filename, self.lineno)]
+    def to_list_item(self):
+        return '{}:{}'.format(self.filename, self.lineno)
 
 
 class Handler:
@@ -98,11 +100,6 @@ class Handler:
         pass
 
     def _handle_Feature(self, node):
-        tags = [t['name'] for t in node['tags']]
-
-        if '@ignore' in tags:
-            return
-
         for child in node.get('children', []):
             self.handle(child)
 
@@ -128,11 +125,6 @@ class Handler:
         self.scenarios.append(s)
 
     def _handle_Examples(self, node):
-        tags = set(t['name'] for t in node['tags'])
-
-        if '@ignore' in tags:
-            return
-
         so = self.scenarios[-1]
         header = [hd['value'] for hd in node['tableHeader']['cells']]
         for row in node.get('tableBody', []):
