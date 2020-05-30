@@ -78,8 +78,20 @@ if __name__ == '__main__':
         os.path.realpath(a.group_directory))
     cases = filter(lambda c: c.to_list_item() in list_items,
                    collect_cases(os.path.realpath(a.directory)))
-    assert len(cases) == len(
-        list_items), 'number of cases is different to the original list'
+
+    def _inspect(cases, list_items):
+        text = ['@@ cases']
+        for c in sorted(cases):
+            text.append(c.to_list_item())
+        text.append('@@ list_items')
+        for l in list_items:
+            text.append(l)
+        text.append('')
+        return '\n'.join(text)
+
+    assert len(cases) == len(list_items), \
+        'number of cases is different to the original list\n\n{}'.format(
+            _inspect(cases, list_items))
 
     it = da_func_test_cost.partition_cases(cases,
                                            num_partitions=num_partitions)
