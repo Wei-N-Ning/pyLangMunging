@@ -22,9 +22,10 @@ def iter_feature_files(dirp):
                 yield f
 
 
-def each(filename):
+def each(filename, rela_parent):
     cases = []
-    dis = os.path.join('features', filename.split('/features/')[-1])
+    dis = os.path.join(rela_parent,
+                       filename.split('/{}/'.format(rela_parent))[-1])
     scenarios = da_func_test_lib.Handler.read_and_handle(filename,
                                                          display_filename=dis)
     for s in scenarios:
@@ -32,12 +33,12 @@ def each(filename):
     return cases
 
 
-def collect_cases(dirp, seq=False):
+def collect_cases(dirp, rela_parent, seq=False):
     it = iter_feature_files(dirp)
     all_cases = set()
     if seq:
         for filename in it:
-            cases = each(filename)
+            cases = each(filename, rela_parent)
             all_cases.update(cases)
     else:
         pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
@@ -74,10 +75,24 @@ def parse_args(args):
 
 if __name__ == '__main__':
     a = parse_args(sys.argv[1:])
+
+    def _print_arg():
+        print('------------ arg ------------')
+        print('pwd:', os.getcwd())
+        print(a)
+
     num_partitions, list_items = collect_list_items(
         os.path.realpath(a.group_directory))
-    cases = filter(lambda c: c.to_list_item() in list_items,
-                   collect_cases(os.path.realpath(a.directory)))
+    rela_parents = set()
+    for l in list_items:
+        rela_parents.add(l.split('/')[0])
+    assert len(
+        rela_parents) == 1, "found more than one relative parent\n\n{}".format(
+            rela_parents)
+    cases = filter(
+        lambda c: c.to_list_item() in list_items,
+        collect_cases(os.path.realpath(a.directory),
+                      list(rela_parents)[0]))
 
     def _inspect(cases, list_items):
         text = ['@@ cases']
