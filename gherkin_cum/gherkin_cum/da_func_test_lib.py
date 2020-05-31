@@ -37,21 +37,21 @@ class ScenarioOutline:
                 continue
             else:
                 score += 1
-        return score
+        return score * (1 + len(self.examples))
 
     def nexamples(self):
         return len(self.examples)
 
     def to_cases(self):
         c = Case()
-        c.steps = self.steps
+        c.cost = self.nsteps()
         c.tags = self.tags
         c.filename = self.filename
         c.lineno = self.lineno
         cs = [c]
         for lineno, _ in self.examples:
             c_ = Case()
-            c_.steps = self.steps
+            c_.cost = self.nsteps()
             c_.filename = self.filename
             c_.lineno = lineno
             cs.append(c_)
@@ -84,7 +84,7 @@ class Scenario:
 
     def to_cases(self):
         c = Case()
-        c.steps = self.steps
+        c.cost = self.nsteps()
         c.tags = self.tags
         c.filename = self.filename
         c.lineno = self.lineno
@@ -93,13 +93,13 @@ class Scenario:
 
 class Case:
     def __init__(self):
-        self.steps = []
+        self.cost = 0
         self.tags = []
         self.filename = None
         self.lineno = None
 
     def nsteps(self):
-        return len(self.steps)
+        return self.cost
 
     def to_list_item(self):
         return '{}:{}'.format(self.filename, self.lineno)
