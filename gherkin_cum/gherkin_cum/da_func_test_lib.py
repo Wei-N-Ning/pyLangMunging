@@ -28,11 +28,11 @@ class ScenarioOutline:
             if keyword not in score_by_keyword:
                 continue
             elif re.search(r'should \w+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'\s+sends\s+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'\s+receives\s+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
             else:
@@ -71,11 +71,11 @@ class Scenario:
             if keyword not in score_by_keyword:
                 continue
             elif re.search(r'should \w+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'\s+sends\s+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'\s+receives\s+', t):  # score
-                score += 2
+                score += 10
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
             else:
