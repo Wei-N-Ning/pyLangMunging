@@ -27,17 +27,17 @@ class ScenarioOutline:
         for keyword, t in self.steps:
             if keyword not in score_by_keyword:
                 continue
-            elif re.search(r'should \w+', t):  # score 10
-                score += 10
-            elif re.search(r'\s+sends\s+', t):  # score 10
-                score += 10
-            elif re.search(r'\s+receives\s+', t):  # score 10
-                score += 10
+            elif re.search(r'should \w+', t):  # score
+                score += 2
+            elif re.search(r'\s+sends\s+', t):  # score
+                score += 2
+            elif re.search(r'\s+receives\s+', t):  # score
+                score += 2
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
             else:
                 score += 1
-        return score * (1 + len(self.examples))
+        return score
 
     def nexamples(self):
         return len(self.examples)
@@ -70,12 +70,12 @@ class Scenario:
         for keyword, t in self.steps:
             if keyword not in score_by_keyword:
                 continue
-            elif re.search(r'should \w+', t):  # score 10
-                score += 10
-            elif re.search(r'\s+sends\s+', t):  # score 10
-                score += 10
-            elif re.search(r'\s+receives\s+', t):  # score 10
-                score += 10
+            elif re.search(r'should \w+', t):  # score
+                score += 2
+            elif re.search(r'\s+sends\s+', t):  # score
+                score += 2
+            elif re.search(r'\s+receives\s+', t):  # score
+                score += 2
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
             else:
