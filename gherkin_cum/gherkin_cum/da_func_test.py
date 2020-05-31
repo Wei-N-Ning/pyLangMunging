@@ -5,6 +5,11 @@ import argparse
 import functools
 import itertools
 import glob
+import time
+import logging
+
+logger = logging.getLogger('partition prog')
+logging.basicConfig()
 
 import da_func_test_lib  # pylint: disable=import-error
 import da_func_test_cost  # pylint: disable=import-error
@@ -14,15 +19,16 @@ this_dir = os.path.dirname(this_file)
 parent_dir = os.path.dirname(this_dir)
 
 
-def iter_feature_files(dirp):
+def iter_feature_files(dirp, rela_parent):
     for cur, _, fns in os.walk(os.path.join(dirp)):
         for fn in fns:
             if fn.endswith('.feature'):
-                f = os.path.realpath(os.path.join(cur, fn))
-                yield f
+                f = os.path.join(cur, fn)
+                yield f, rela_parent
 
 
-def each(filename, rela_parent):
+def each(tu):
+    filename, rela_parent = tu
     cases = []
     dis = os.path.join(rela_parent,
                        filename.split('/{}/'.format(rela_parent))[-1])
@@ -34,15 +40,16 @@ def each(filename, rela_parent):
 
 
 def collect_cases(dirp, rela_parent, seq=False):
-    it = iter_feature_files(dirp)
+    orig_it = iter_feature_files(dirp, rela_parent)
+
     all_cases = set()
     if seq:
-        for filename in it:
-            cases = each(filename, rela_parent)
+        for filename in orig_it:
+            cases = each((filename, rela_parent))
             all_cases.update(cases)
     else:
         pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-        for cases in pool.imap_unordered(each, it):
+        for cases in pool.imap_unordered(each, orig_it):
             all_cases.update(cases)
     return all_cases
 
@@ -70,44 +77,41 @@ def parse_args(args):
     p = argparse.ArgumentParser()
     p.add_argument('-d', '--directory', default='func-test/src')
     p.add_argument('-g', '--group-directory', default='func-test')
+    p.add_argument('-v', '--verbose', action='store_true')
     return p.parse_args(args)
 
 
 if __name__ == '__main__':
     a = parse_args(sys.argv[1:])
 
-    def _print_arg():
-        print('------------ arg ------------')
-        print('pwd:', os.getcwd())
-        print(a)
+    print('------------ arg ------------')
+    print('pwd:', os.getcwd())
+    print('python version:', sys.version_info)
+    print(a)
 
     num_partitions, list_items = collect_list_items(
         os.path.realpath(a.group_directory))
+    print('list_items:', num_partitions, len(list_items))
+
     rela_parents = set()
     for l in list_items:
         rela_parents.add(l.split('/')[0])
     assert len(
         rela_parents) == 1, "found more than one relative parent\n\n{}".format(
             rela_parents)
-    cases = filter(
-        lambda c: c.to_list_item() in list_items,
-        collect_cases(os.path.realpath(a.directory),
-                      list(rela_parents)[0]))
+    print('rela_parents', rela_parents)
+    rela_parent = list(rela_parents)[0]
+    cases = filter(lambda c: c.to_list_item() in list_items,
+                   collect_cases(a.directory, rela_parent))
 
-    def _inspect(cases, list_items):
-        text = ['@@ cases']
-        for c in sorted(cases):
-            text.append(c.to_list_item())
-        text.append('@@ list_items')
-        for l in list_items:
-            text.append(l)
-        text.append('')
-        return '\n'.join(text)
+    print('cases:', len(cases))
 
     assert len(cases) == len(list_items), \
-        'number of cases is different to the original list\n\n{}'.format(
-            _inspect(cases, list_items))
+        'number of cases is different to the original list'
 
+    print('partitioning...')
+    now = time.time()
     it = da_func_test_cost.partition_cases(cases,
                                            num_partitions=num_partitions)
     update_list_items(it, os.path.realpath(a.group_directory))
+    print('DONE', (time.time() - now), 'sec')

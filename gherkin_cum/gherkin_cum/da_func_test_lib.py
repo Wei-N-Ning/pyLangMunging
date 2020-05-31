@@ -1,9 +1,17 @@
 import sys
+import re
 import os
 import collections
 
 from gherkin.token_scanner import TokenScanner
 from gherkin.parser import Parser
+
+score_by_keyword = {
+    'Given': 1,
+    'And': 0,
+    'Then': 1,
+    'When': 1,
+}
 
 
 class ScenarioOutline:
@@ -15,7 +23,21 @@ class ScenarioOutline:
         self.lineno = None
 
     def nsteps(self):
-        return len(self.steps)
+        score = 0
+        for keyword, t in self.steps:
+            if keyword not in score_by_keyword:
+                continue
+            elif re.search(r'should \w+', t):  # score 10
+                score += 10
+            elif re.search(r'\s+sends\s+', t):  # score 10
+                score += 10
+            elif re.search(r'\s+receives\s+', t):  # score 10
+                score += 10
+            elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
+                continue
+            else:
+                score += 1
+        return score
 
     def nexamples(self):
         return len(self.examples)
@@ -44,7 +66,21 @@ class Scenario:
         self.lineno = None
 
     def nsteps(self):
-        return len(self.steps)
+        score = 0
+        for keyword, t in self.steps:
+            if keyword not in score_by_keyword:
+                continue
+            elif re.search(r'should \w+', t):  # score 10
+                score += 10
+            elif re.search(r'\s+sends\s+', t):  # score 10
+                score += 10
+            elif re.search(r'\s+receives\s+', t):  # score 10
+                score += 10
+            elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
+                continue
+            else:
+                score += 1
+        return score
 
     def to_cases(self):
         c = Case()
@@ -110,7 +146,8 @@ class Handler:
         so = ScenarioOutline()
         so.lineno = node['location']['line']
         so.tags = [t['name'] for t in node['tags']]
-        so.steps = [(s['keyword'], s['text']) for s in node['steps']]
+        so.steps = [(s['keyword'].strip(), s['text'].strip())
+                    for s in node['steps']]
         so.filename = self.filename
         self.scenarios.append(so)
         for example in node.get('examples', []):
@@ -120,7 +157,8 @@ class Handler:
         s = Scenario()
         s.lineno = node['location']['line']
         s.tags = [t['name'] for t in node['tags']]
-        s.steps = [(st['keyword'], st['text']) for st in node['steps']]
+        s.steps = [(st['keyword'].strip(), st['text'].strip())
+                   for st in node['steps']]
         s.filename = self.filename
         self.scenarios.append(s)
 
@@ -138,6 +176,14 @@ if __name__ == '__main__':
     fea_file = os.path.join(this_dir, '..', 'resources',
                             'CEB_Dependencies.feature')
     scenarios = Handler.read_and_handle(fea_file)
-    for s in scenarios:
-        for i in s.to_list_items():
-            print(i)
+    for sc in scenarios:
+        for keyword, t in sc.steps:
+            if re.search(r'should \w+', t):  # score 10
+                continue
+            elif re.search(r'\s+sends\s+', t):  # score 10
+                continue
+            elif re.search(r'\s+receives\s+', t):  # score 10
+                continue
+            elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
+                continue
+            print(t)  # score 1
