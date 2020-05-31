@@ -24,17 +24,24 @@ class ScenarioOutline:
 
     def nsteps(self):
         score = 0
-        for keyword, t in self.steps:
-            if keyword not in score_by_keyword:
-                continue
-            elif re.search(r'should \w+', t):  # score
-                score += 10
+        for _keyword, t in self.steps:
+            # steps/LedgerInteractions
+            if re.search(r'creates contract|exercises choice|should', t):
+                score += 4
+            elif re.search(r'date rolls over', t):
+                score += 4
             elif re.search(r'\s+sends\s+', t):  # score
-                score += 10
+                score += 4
             elif re.search(r'\s+receives\s+', t):  # score
-                score += 10
+                score += 4
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
+            elif re.search(r'today is (.+)$', t):
+                score += 1
+            elif re.search(r'(?:this|these) (.+) exist[s]?:', t):
+                score += 1
+            elif re.search(r'^ASX operator is set up$', t):
+                score += 1
             else:
                 score += 1
         return score
@@ -177,13 +184,16 @@ if __name__ == '__main__':
                             'CEB_Dependencies.feature')
     scenarios = Handler.read_and_handle(fea_file)
     for sc in scenarios:
+        score = 0
         for keyword, t in sc.steps:
-            if re.search(r'should \w+', t):  # score 10
-                continue
-            elif re.search(r'\s+sends\s+', t):  # score 10
-                continue
-            elif re.search(r'\s+receives\s+', t):  # score 10
-                continue
+            if re.search(r'creates contract|exercises choice|should', t):
+                score += 5
+            elif re.search(r'\s+sends\s+', t):  # score
+                score += 5
+            elif re.search(r'\s+receives\s+', t):  # score
+                score += 5
             elif re.search(r'[^\s]+\s+is\s+[^\s]+', t):  # score 0
                 continue
-            print(t)  # score 1
+            else:
+                score += 1
+                print(t)  # score 1
