@@ -1,6 +1,19 @@
 #!/usr/bin/env python
 import argparse, os, sys
 
+# sort the symbols in each import statements
+def sort_imported_symbols(line):
+    o = re.search(r'\((.+,.+)\)', line)
+    if o is None:
+        return line
+    symbols = sorted(s.strip() for s in o.groups()[0].split(','))
+    head = line[0: o.start()]
+    s = head + '( ' + symbols[0]
+    for symbol in symbols[1:]:
+        s += '\n' + ' ' * len(head) + ', ' + symbol
+    s += '\n' + ' ' * len(head) + ')\n'
+    return s<Paste>
+
 def sort_imports(reader, writer):
     group = []
     open_space = 0
