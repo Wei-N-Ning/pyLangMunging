@@ -1,5 +1,4 @@
 class Solution:
-
     def evaluate_expr(self, stack):
 
         res = stack.pop() if stack else 0
@@ -11,7 +10,7 @@ class Solution:
                 res += stack.pop()
             else:
                 res -= stack.pop()
-        return res       
+        return res
 
     def calculate(self, s: str) -> int:
 
@@ -34,9 +33,9 @@ class Solution:
                     stack.append(operand)
                     n, operand = 0, 0
 
-                if ch == '(':         
+                if ch == '(':
                     res = self.evaluate_expr(stack)
-                    stack.pop()        
+                    stack.pop()
 
                     # Append the evaluated result to the stack.
                     # This result could be of a sub-expression within the parenthesis.
