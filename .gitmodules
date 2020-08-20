@@ -1,0 +1,3 @@
+[submodule "gherkin_tool/gherkin-python"]
+	path = gherkin_tool/gherkin-python
+	url = https://github.com/Wei-N-Ning/gherkin-python
