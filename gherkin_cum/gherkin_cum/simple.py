@@ -1,4 +1,3 @@
-
 # source:
 # https://stackoverflow.com/questions/43107367/how-to-use-gherkin-official
 
@@ -8,6 +7,12 @@
 from gherkin.token_scanner import TokenScanner
 from gherkin.parser import Parser
 parser = Parser()
-feature_file = parser.parse(TokenScanner("Feature: Foo"))
-print(feature_file)
+feature_file = parser.parse(
+    TokenScanner('''
 
+# Feature: Foo
+
+Scenario Outline: 12
+
+'''))
+print(feature_file)
