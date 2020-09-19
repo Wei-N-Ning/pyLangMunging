@@ -9,10 +9,12 @@ from gherkin.parser import Parser
 parser = Parser()
 feature_file = parser.parse(
     TokenScanner('''
+Feature: Foo
+  Background:
 
-# Feature: Foo
-
-Scenario Outline: 12
+  Scenario Outline: 12
+  
+  Scenario Outline: 15
 
 '''))
 print(feature_file)
