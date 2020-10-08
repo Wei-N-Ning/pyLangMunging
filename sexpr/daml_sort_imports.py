@@ -19,10 +19,23 @@ def sort_imported_symbols(line):
 def sort_imports(reader, writer):
     group = []
     open_space = 0
+    prev_line = ''
+    opener_regex = r'^\s*import\s+'
+    dangling_paren_regex = r'^\s*\('
     for line in reader:
-        if line.startswith('import '):
+        # an "opener" of an import statement, e.g.
+        # import ...
+        if re.match(opener_regex, line):
             open_space = line.count('(') - line.count(')')
             group.append(line)
+        # a "dangling" paren; need to check if the previous line
+        # is an opener and concat them
+        elif re.match(dangling_paren_regex, line) and re.match(opener_regex, prev_line):
+            open_space = line.count('(') - line.count(')')
+            group[-1] += line
+        # there is at least one open paren, meaning that it is
+        # still a part of the import statement; append the line
+        # to the last line so that it is sorted as a single str
         elif open_space > 0:
             open_space -= line.count(')') - line.count('(')
             group[-1] += line
@@ -31,6 +44,8 @@ def sort_imports(reader, writer):
                 writer.write(import_line)
             group = []
             writer.write(line)
+
+        prev_line = line
 
     for import_line in sorted(group):
         writer.write(import_line)
@@ -49,14 +64,15 @@ def sort_all_imports(in_filenames, out_dir):
                 sort_imports(reader=in_file, writer=out_file)
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--out_dir',
-                    default='tmp/',
-                    help='Root directory to write files with sorted imports')
-parser.add_argument('in_filenames',
-                    nargs=argparse.REMAINDER,
-                    default=[],
-                    help='Paths to the files whose imports we want to sort')
-args = parser.parse_args()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--out_dir',
+                        default='tmp/',
+                        help='Root directory to write files with sorted imports')
+    parser.add_argument('in_filenames',
+                        nargs=argparse.REMAINDER,
+                        default=[],
+                        help='Paths to the files whose imports we want to sort')
+    args = parser.parse_args()
 
-sort_all_imports(args.in_filenames, args.out_dir)
+    sort_all_imports(args.in_filenames, args.out_dir)
