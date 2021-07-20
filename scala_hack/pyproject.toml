@@ -9,6 +9,8 @@ python = "^3.8"
 pylint = "^2.9.3"
 mypy = "^0.910"
 yapf = "^0.31.0"
+pyparsing = "^2.4.7"
+regex = "^2021.7.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
